@@ -30,14 +30,15 @@ app.engine(
 );
 app.set("view engine", ".hbs");
 app.set("views", "./views");
-
-//STATIC FILES
-app.use(express.static(path.join(__dirname, "/public")));
+app.set("trust proxy", true),
+  //STATIC FILES
+  app.use(express.static(path.join(__dirname, "/public")));
 
 //ROUTES
 app.get("/", (req, res) => {
   res.render("main");
 });
+
 app.use("/api/files", fileRouter);
 app.all("*", (req, res, err, next) => {
   console.log(err);

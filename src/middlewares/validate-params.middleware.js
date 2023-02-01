@@ -1,5 +1,6 @@
 const formidable = require("formidable");
 const validateParams = (req, res, next) => {
+  console.log(req.ip);
   const form = formidable({ multiples: true });
   form.parse(req, (err, fields, files) => {
     if (err) {
@@ -7,38 +8,9 @@ const validateParams = (req, res, next) => {
       res.end(String(err));
       return;
     }
-    console.log({ fields, files });
   });
 
   next();
 };
-
-// const validateParams = (requestParams) => {
-//   return function validateParams(req, res, next) {
-//     for (let param of requestParams) {
-//       if (checkParamPresent(Object.keys(req.body), param)) {
-//         let reqParam = req.body[param.param_key];
-//         if (!checkParamType(reqParam, param)) {
-//           return res.status(400).send({
-//             result:
-//               `${param.param_key} is of type ` +
-//               `${typeof reqParam} but should be ${param.type}`,
-//           });
-//         } else {
-//           if (!runValidators(reqParam, param)) {
-//             return res.status(400).send({
-//               result: `Validation failed for ${param.param_key}`,
-//             });
-//           }
-//         }
-//       } else if (param.required) {
-//         return res.status(400).send({
-//           result: `Missing Parameter ${param.param_key}`,
-//         });
-//       }
-//     }
-//     next();
-//   };
-// };
 
 module.exports = { validateParams };

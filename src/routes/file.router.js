@@ -4,7 +4,6 @@ const fileController = require("./../controllers/file.controller");
 
 const router = express.Router();
 
-router.route("/upload").post(validateParams, fileController.upload);
-//   .post(bookingController.createBooking);
+router.route("/upload").post(fileController.upload);
 
 module.exports = router;

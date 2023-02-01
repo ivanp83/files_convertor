@@ -1,3 +1,20 @@
+body{
+  width:100vw;
+  height: 100vh;
+  display: grid;
+  place-content: center;
+}
+
+#form-send-files{
+  display: grid;
+
+  width: 320px;
+  grid-auto-flow: row;
+
+}
+#form-send-files *{
+  width: 100%;
+}
 label {
     background-color: indigo;
     color: white;
