@@ -1,3 +1,4 @@
+import { Request, Response, NextFunction } from "express";
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -12,22 +13,22 @@ require("dotenv").config();
 //MIDDLEWARES
 app.use(cors());
 app.use(bodyParser.json());
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
+app.use(bodyParser.urlencoded({
+    extended: true
   })
 );
 
 //SSR
-app.engine(
-  ".hbs",
-  engine({
+app.engine(".hbs", engine({
     extname: ".hbs",
     layoutDir: __dirname + "/views/layouts",
     partialsDir: __dirname + "/views/partials/",
-    defaultLayout: "index",
+    defaultLayout: "index"
   })
 );
+// задать параметры приложения:
+// view engine (используемый шаболнизатор)
+// view (каталог, в которм лежат файлы шаблонов)
 app.set("view engine", ".hbs");
 app.set("views", "./views");
 
@@ -35,11 +36,11 @@ app.set("views", "./views");
 app.use(express.static(path.join(__dirname, "/public")));
 
 //ROUTES
-app.get("/", (req, res) => {
+app.get("/", (req: Request, res: Response) => {
   res.render("main");
 });
 app.use("/api/files", fileRouter);
-app.all("*", (req, res, err, next) => {
+app.all("*", (req: Request, res: Response, err: any , next: NextFunction) => {
   console.log(err);
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
@@ -49,7 +50,7 @@ const server = app.listen(port, () => {
   console.log(`App running on port ${port}...`);
 });
 
-process.on("unhandledRejection", (err) => {
+process.on("unhandledRejection", (err: any) => {
   console.log("UNHANDLED REJECTION!");
   console.log(err.name, err.message);
   server.close(() => {
