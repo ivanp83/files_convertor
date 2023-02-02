@@ -1,13 +1,8 @@
-<<<<<<< HEAD
 import { Request, Response, NextFunction } from 'express';
 const formidable = require('formidable');
-=======
-import { Request, Response, NextFunction } from "express";
-const formidable = require("formidable");
->>>>>>> 98db5e9bfa36f05703941a99e9e3934d6a8c4193
 const validateParams = (req: Request, res: Response, next: NextFunction) => {
   const form = formidable({ multiples: true });
-  //???????
+
   form.parse(req, (err: any, fields: any[], files: any[]) => {
     if (err) {
       res.writeHead(err.httpCode || 400, { 'Content-Type': 'text/plain' });
