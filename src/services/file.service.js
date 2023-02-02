@@ -1,19 +1,18 @@
 const sharp = require("sharp");
-const { readdir } = require("fs");
-exports.converFile = async (file) => {
+const path = require("path");
+exports.converFile = async (file, format) => {
   try {
-    const items = await readdir(".", { withFileTypes: true }).then((items) =>
-      items.filter((dir) => dir.name !== "node_modules")
+    const newFielePath = path.join(
+      "uploads",
+      file.originalFilename.replace(/jpg|jpeg|png/g, format).replace(/ /g, "")
     );
-    return items;
-    // sharp(file.filepath)
-    //   .toFormat(String(format), { mozjpeg: true })
-    //   .toFile(
-    //     path.join(
-    //       __dirname,
-    //       "uploads",
-    //       file.filepath + "-converted" + "." + format
-    //     )
-    //   );
-  } catch (error) {}
+    setTimeout(() => {
+      sharp(file.filepath)
+        .toFormat(String(format), { mozjpeg: true })
+        .toFile(newFielePath);
+    }, 0);
+    return newFielePath;
+  } catch (error) {
+    console.log(error);
+  }
 };

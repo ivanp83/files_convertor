@@ -1,5 +1,17 @@
+
+  <ul class="people_list">
+
+
+    {{#each arrAddress}}
+      <a href={{this}}>{{this}}</a>
+    {{/each}}
+  </ul>
+
+
+{{> loader}}
+
 <br />
-<form id="form-send-files" method="post">
+<form id="form-send-files" >
   <input type="file" multiple="true" id="actual-btn" hidden />
   <label for="actual-btn">Choose File</label>
   <span id="file-chosen">No file chosen</span>

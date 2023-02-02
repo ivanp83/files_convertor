@@ -40,6 +40,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/files", fileRouter);
+//app.use("/api/", storageRoutes);
+
 app.all("*", (req, res, err, next) => {
   console.log(err);
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

@@ -1,10 +1,12 @@
 const form = document.getElementById("form-send-files");
+const loader = document.querySelector(".lds-dual-ring");
 
 form.addEventListener("submit", onSubmit);
 
 async function onSubmit(event) {
   event.preventDefault();
   try {
+    loader.style.display = "block";
     let formData = new FormData();
 
     Array.from(event.target[0].files).forEach((element) =>
@@ -19,6 +21,8 @@ async function onSubmit(event) {
     );
   } catch (error) {
     console.log(error);
+  } finally {
+    loader.style.display = "none";
   }
 
   //   let result = await response.json();
