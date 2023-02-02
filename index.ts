@@ -11,7 +11,7 @@ const AppError = require('./src/error/app.error');
 require('dotenv').config();
 
 export const STORAGEDIR = path.join(process.cwd(), 'uploads');
-//MIDDLEWARES
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(
@@ -20,22 +20,13 @@ app.use(
   })
 );
 
-//STATIC FILES
-// app.use(express.static(path.join(__dirname, '/public')));
-
-// app.use(express.static(path.resolve(__dirname, '../client/dist')));
-
-//ROUTES
-// app.get('/', (req: Request, res: Response) => {
-//   res.render('main');
-// });
+app.use(express.static(path.join(__dirname, '/uploads')));
 
 app.use('/api/files', fileRouter);
 app.use('/api/download', downloadRouter);
 app.all('*', (req: Request, res: Response, err: any, next: NextFunction) => {
-  // console.log(err);
+  console.log(err);
   // next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
-  res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
 });
 
 //MIDDLEWARES
@@ -47,24 +38,19 @@ app.use(
   })
 );
 
-//STATIC FILES
 app.use(express.static(path.join(__dirname, '/public')));
 
-//ROUTES
 app.get('/', (req: Request, res: Response) => {
   res.render('main');
 });
 
 app.use('/api/files', fileRouter);
 
-//app.use("/api/", storageRoutes);
-
 app.all('*', (req: Request, res: Response, err: any, next: NextFunction) => {
   console.log(err);
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
-//SERVER
 const server = app.listen(port, () => {
   console.log(`App running on port ${port}...`);
 });
