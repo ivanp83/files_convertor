@@ -10,9 +10,10 @@ const convertFile = async (
   next: NextFunction
 ) => {
   try {
-    const filePath = file.originalFilename
+    const filename = file.originalFilename
       .replace(/jpg|jpeg|png/g, format)
       .replace(/ /g, '');
+    const filePath = path.join('uploads', filename);
 
     setTimeout(() => {
       sharp(file.filepath)
@@ -20,7 +21,7 @@ const convertFile = async (
         .toFile(filePath);
     }, 0);
 
-    return path.join('http://localhost:3000', 'api', 'download', filePath);
+    return path.join('http://localhost:3000', 'api', 'download', filename);
   } catch (error: any) {
     return next(new AppError(error.message, 404));
   }
