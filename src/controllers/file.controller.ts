@@ -47,23 +47,23 @@ const upload = async (req: Request, res: Response): Promise<any> => {
 
 const download = async (req: Request, res: Response, next: NextFunction) => {
   // const {  name } = req.params;
-  console.log(req.params);
+  console.log('req.params');
   // const { hash } = req.query;
   // const path = `${dir}/${hash}`;
   try {
     //   // if (getFromCash(path)) {
     //   //   return res.sendFile(`${STORAGEDIR}/${name}`);
     //   // }
-    //   res.sendFile(`localhost/${dir}/${name}`);
+
     const filePath = path.join(process.cwd(), 'uploads', req.params.name);
+    res.sendFile(filePath);
+    // const stat = fs.statSync(filePath);
+    // res.writeHead(200, {
+    //   'Content-Length': stat.size,
+    // });
+    // const readStream = fs.createReadStream(filePath);
 
-    const stat = fs.statSync(filePath);
-    res.writeHead(200, {
-      'Content-Length': stat.size,
-    });
-    const readStream = fs.createReadStream(filePath);
-
-    readStream.pipe(res);
+    // readStream.pipe(res);
 
     // fs.exists(filePath, function (exists) {
     //   if (exists) {
@@ -87,3 +87,13 @@ const download = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 module.exports = { upload, download };
+// const file = fs.createReadStream(filePath);
+// const stat = fs.statSync(filePath);
+// console.log(stat);
+// res.setHeader('Content-Length', stat.size);
+// res.setHeader('Content-Type', 'application/pdf');
+// res.setHeader(
+//   'Content-Disposition',
+//   'attachment; filename=declaration.pdf'
+// );
+// file.pipe(res);

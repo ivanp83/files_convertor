@@ -42,7 +42,7 @@ function FileUploadMultiple() {
         <ul>
           {resData.map((link: string, i: number) => (
             <li key={i}>
-              <a href={link} download>
+              <a href={`http://localhost:3000/api/${link}`} download>
                 {`Download file-${i + 1}`}
               </a>
             </li>

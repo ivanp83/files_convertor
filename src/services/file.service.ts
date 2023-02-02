@@ -21,7 +21,7 @@ const convertFile = async (
         .toFile(filePath);
     }, 0);
 
-    return path.join('http://localhost:3000', 'api', 'download', filename);
+    return path.join('download', filename);
   } catch (error: any) {
     return next(new AppError(error.message, 404));
   }

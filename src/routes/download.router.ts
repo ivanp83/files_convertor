@@ -1,5 +1,3 @@
-import { Request, Response } from 'express';
-
 export {};
 const express = require('express');
 const router = express.Router();

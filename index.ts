@@ -10,8 +10,6 @@ const path = require('path');
 const AppError = require('./src/error/app.error');
 require('dotenv').config();
 
-export const STORAGEDIR = path.join(process.cwd(), 'uploads');
-
 app.use(cors());
 app.use(bodyParser.json());
 app.use(
@@ -29,7 +27,6 @@ app.all('*', (req: Request, res: Response, err: any, next: NextFunction) => {
   // next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
-//MIDDLEWARES
 app.use(cors());
 app.use(bodyParser.json());
 app.use(
@@ -37,12 +34,6 @@ app.use(
     extended: true,
   })
 );
-
-app.use(express.static(path.join(__dirname, '/public')));
-
-app.get('/', (req: Request, res: Response) => {
-  res.render('main');
-});
 
 app.use('/api/files', fileRouter);
 
