@@ -86,4 +86,4 @@ const download = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export = { upload, download };
+module.exports = { upload, download };

@@ -25,4 +25,4 @@ const convertFile = async (
     return next(new AppError(error.message, 404));
   }
 };
-export = { convertFile };
+module.exports = { convertFile };
